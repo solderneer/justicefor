@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+    site:
+        build: .
+        restart: always
+        expose:
+         - "80"
+        networks:
+         - proxy
+         - default
+        labels:
+         - "traefik.backend=justicefor"
+         - "traefik.docker.network=proxy"
+         - "traefik.basic.frontend.rule=Host:justicefor.solderneer.me;PathPrefix:/"
+         - "traefik.enable=true"
+         - "traefik.basic.port=80"
+
+networks:
+    proxy:
+        external: true
